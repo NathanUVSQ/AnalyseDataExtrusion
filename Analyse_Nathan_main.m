@@ -110,6 +110,13 @@ for i = 1:length(file_list) %Pour toute les feuilles
     integration_name_all_iter{i} = integration_name;
     regionData_all_iter{i} = regionData;
     Xtime_all_iter{i} = Xtime;
+
+
+    if i == 1
+        integration_ALL = integration;
+        integration_ALL_name = integration_name;
+    end
+
 end
 
 %% COMPARAISON M vs F
@@ -131,6 +138,7 @@ end
 fprintf('\nCréation des figures terminée.\n')
 
 %% WIDGET INTERACTIF (utilise les données de la DERNIÈRE itération, ici F)
-openIntegrationComparisonUI(integration, integration_name);
+%openIntegrationComparisonUI(integration, integration_name); %PB prend
+%seulement les valeurs de F !!!
 
 fprintf('\nTerminé.\n')
