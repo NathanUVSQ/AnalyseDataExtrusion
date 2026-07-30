@@ -2,7 +2,7 @@ function openIntegrationComparisonUI(integration, integration_name)
 
     sheetList = cellstr(integration_name);
 
-    fig = uifigure('Name','Comparaison t-test - Intégration','Position',[100 100 520 420]);
+    fig = uifigure('Name','Comparaison t-test - Intégration - ALL','Position',[100 100 520 420]);
 
     uilabel(fig,'Position',[20 380 200 22],'Text','Feuille A :','FontWeight','bold');
     listA = uilistbox(fig,'Position',[20 160 230 210],'Items',sheetList);

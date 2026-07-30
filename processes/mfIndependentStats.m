@@ -14,7 +14,8 @@ function MF_StatsSummary = mfIndependentStats(regionDataM, regionDataF, integrat
         labelsM = regionDataM.(region).labels;
         labelsF = regionDataF.(region).labels;
         communLabels = intersect(labelsM,labelsF,'stable');
-
+        
+       
         for k = 1:length(communLabels)
             paramName = communLabels{k};
             idxParamM = find(strcmp(labelsM,paramName),1);
@@ -32,8 +33,9 @@ function MF_StatsSummary = mfIndependentStats(regionDataM, regionDataF, integrat
                 fprintf('\n[M vs F | %s] %s : pas assez de films valides.\n',region,paramName);
                 continue
             end
-
-            [~,p_ttest2,~,stats2] = ttest2(valM,valF,'Vartype','unequal');
+            
+            %% STUDENT TEST INDEPENDANT 
+            [~,p_ttest2,~,stats2] = ttest2(valM,valF,'Vartype','unequal'); 
             p_ranksum = ranksum(valM,valF);
 
             MF_StatsSummary = [MF_StatsSummary; table(string(region), string(paramName), ...

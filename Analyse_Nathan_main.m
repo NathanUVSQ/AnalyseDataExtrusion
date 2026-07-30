@@ -2,11 +2,11 @@ close all
 clear
 
 %% CONFIG
-MF_decision = false;
-moyenne_decision = true;
-regression_decision = false;
-variance_decision = false;
-cumulative_decision = false;
+MF_decision = true; %% COMPARAISON M et F (stat + fig)
+moyenne_decision = true; %% OBLIGATION
+regression_decision = true; %% REGRESSION
+variance_decision = true; %% VARIANCE
+cumulative_decision = true; %% CUMULATIF
 
 tStart = -5;
 tEnd   = 10;
