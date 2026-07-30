@@ -138,7 +138,7 @@ end
 fprintf('\nCréation des figures terminée.\n')
 
 %% WIDGET INTERACTIF (utilise les données de la DERNIÈRE itération, ici F)
-%openIntegrationComparisonUI(integration, integration_name); %PB prend
+openIntegrationComparisonUI(integration_ALL, integration_ALL_name); %PB prend
 %seulement les valeurs de F !!!
 
 fprintf('\nTerminé.\n')
