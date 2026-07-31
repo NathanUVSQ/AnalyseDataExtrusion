@@ -7,6 +7,8 @@ function Analyse_Nathan_main(MF_decision, moyenne_decision,regression_decision,v
     % regression_decision = true; %% REGRESSION
     % variance_decision = true; %% VARIANCE
     % cumulative_decision = true; %% CUMULATIF
+    f = waitbar(0,'Please wait...',HandleVisibility = 'callback'); %Progression
+    
     
     tStart = -5;
     tEnd   = 10;
@@ -61,18 +63,24 @@ function Analyse_Nathan_main(MF_decision, moyenne_decision,regression_decision,v
     
         outputExcel = fullfile(analysisDir,name + "_Analysis.xlsx");
         path_list{i} = analysisDir;
-    
+        
+
+        waitbar(.10,f,'Creating file...');
+
         fprintf('\n--- Itération %d : %s ---\n', i, file)
-    
+        waitbar(.33,f,'Data calcul...');
         [allSheets, allFiles, sheetNamesExtr, sheetNamesDiv] = ...
             getSheetList(excelFile, excelExtrusions, excelDivisions); %
     
         [matrice_coef_var, matrice_std, matrice_variance, matrice_data, ...
          matrice_moyenne, Xtime, integration, integration_name, rawDataBySheet] = ...
             computeSheetStats(allSheets, allFiles, tStart, tEnd, outputExcel, figuresDir); %Calcul matrices
-    
-        close all
-    
+        
+
+        
+        %close all
+        waitbar(.33,f,'Statistic calcul...');
+
         [regionData, RegressionSummary] = buildRegionData(regions, allSheets, ...
             matrice_coef_var, matrice_std, matrice_variance, matrice_data, matrice_moyenne, ...
             Xtime, tStart, tEnd, figuresDir, moyenne_decision, regression_decision, ...
@@ -90,6 +98,8 @@ function Analyse_Nathan_main(MF_decision, moyenne_decision,regression_decision,v
         if ~exist(statsDir,'dir')
             mkdir(statsDir); 
         end
+
+        waitbar(.67,f,'Regression calcul...');
     
         PairedStatsSummary = pairedStatsTest(regionData, pairesAComparer, integration, ...
             rawDataBySheet, Xtime, tStart, tEnd, statsDir);
@@ -120,6 +130,7 @@ function Analyse_Nathan_main(MF_decision, moyenne_decision,regression_decision,v
     end
     
     %% COMPARAISON M vs F
+    waitbar(.80,f,'Comparaison M/F...');
     if MF_decision
         mfDir = fullfile(path,'analyses','MF_Comparison');
         if ~exist(mfDir,'dir') 
@@ -140,6 +151,8 @@ function Analyse_Nathan_main(MF_decision, moyenne_decision,regression_decision,v
     %% WIDGET INTERACTIF (utilise les données de la DERNIÈRE itération, ici F)
     openIntegrationComparisonUI(integration_ALL, integration_ALL_name); %PB prend
     %seulement les valeurs de F !!!
-    
+    waitbar(1,f,'Finish !');
+    pause(1)
+    close(f)
     fprintf('\nTerminé.\n')
 end

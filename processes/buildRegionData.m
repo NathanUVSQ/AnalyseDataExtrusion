@@ -97,7 +97,7 @@ function [regionData, RegressionSummary] = buildRegionData(regions, allSheets, .
         plotSpearmanMatrix(Xdata, labels, ['Spearman Raw Data - ' region], ...
             fullfile(figuresDir,['Matrice Raw Data ' region '.png']));
 
-        close all
+        %close all
     end
 end
 
@@ -111,7 +111,7 @@ function plotMeansOverTime(Xmoy_plot, std_plot, labels_plot, Xtime, tStart, tEnd
     colorsMoy = lines(nParams);
 
     figFullscreen = figure('Name',['Moyennes over time - ' region], ...
-        'Units','normalized','Position',[0.05 0.05 0.9 0.85]);
+        'Units','normalized','Position',[0.05 0.05 0.9 0.85],'Visible','off');
 
     for k = 1:nParams
         subplot(nRows, nCols, k)
@@ -141,7 +141,7 @@ function plotCVOverTime(Xcoef_plot, labels_plot, Xtime, tStart, tEnd, region, fi
 end
 
 function plotVarianceOverTime(Xvar_plot, labels_plot, Xtime, tStart, tEnd, region, figuresDir)
-    figure('Name',['Variance over time - ' region])
+    figure('Name',['Variance over time - ' region],'Visible','off')
     hold on
     colorsVar = lines(size(Xvar_plot,2));
     for k = 1:size(Xvar_plot,2)
