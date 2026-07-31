@@ -64,11 +64,13 @@ function Analyse_Nathan_main(MF_decision, moyenne_decision,regression_decision,v
         outputExcel = fullfile(analysisDir,name + "_Analysis.xlsx");
         path_list{i} = analysisDir;
         
-
-        waitbar(.10,f,'Creating file...');
-
+        if exist('f','var') && isvalid(f)
+            waitbar(.10,f,'Creating file...');
+        end
         fprintf('\n--- Itération %d : %s ---\n', i, file)
-        waitbar(.33,f,'Data calcul...');
+        if exist('f','var') && isvalid(f)
+            waitbar(.20,f,'Data calcul...');
+        end
         [allSheets, allFiles, sheetNamesExtr, sheetNamesDiv] = ...
             getSheetList(excelFile, excelExtrusions, excelDivisions); %
     
@@ -79,7 +81,9 @@ function Analyse_Nathan_main(MF_decision, moyenne_decision,regression_decision,v
 
         
         %close all
-        waitbar(.33,f,'Statistic calcul...');
+        if exist('f','var') && isvalid(f)
+            waitbar(.33,f,'Statistic calcul...');
+        end
 
         [regionData, RegressionSummary] = buildRegionData(regions, allSheets, ...
             matrice_coef_var, matrice_std, matrice_variance, matrice_data, matrice_moyenne, ...
@@ -98,8 +102,9 @@ function Analyse_Nathan_main(MF_decision, moyenne_decision,regression_decision,v
         if ~exist(statsDir,'dir')
             mkdir(statsDir); 
         end
-
-        waitbar(.67,f,'Regression calcul...');
+        if exist('f','var') && isvalid(f)
+            waitbar(.67,f,'Regression calcul...');
+        end
     
         PairedStatsSummary = pairedStatsTest(regionData, pairesAComparer, integration, ...
             rawDataBySheet, Xtime, tStart, tEnd, statsDir);
@@ -130,7 +135,9 @@ function Analyse_Nathan_main(MF_decision, moyenne_decision,regression_decision,v
     end
     
     %% COMPARAISON M vs F
-    waitbar(.80,f,'Comparaison M/F...');
+    if exist('f','var') && isvalid(f)
+        waitbar(.80,f,'Comparaison M/F...');
+    end
     if MF_decision
         mfDir = fullfile(path,'analyses','MF_Comparison');
         if ~exist(mfDir,'dir') 
